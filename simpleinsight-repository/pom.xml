@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.gp.simpleinsight</groupId>
+        <artifactId>simpleinsight</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>com.gp.simpleinsight</groupId>
+    <artifactId>simpleinsight-repository</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+  
+    <name>Simple Insight Repository</name>
+    <description>Simplify</description>
+  
+    <dependencies>
+        <dependency>  
+            <groupId>com.gp.simpleinsight</groupId>  
+            <artifactId>simpleinsight-domain</artifactId>  
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

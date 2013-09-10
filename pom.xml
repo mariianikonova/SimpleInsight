@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Simple Insight</name>
+    <description>Simplify</description>
+  
+    <groupId>com.gp.simpleinsight</groupId>
+    <artifactId>simpleinsight</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+  
+    
+    <modules>
+        <module>simpleinsight-domain</module>
+        <module>simpleinsight-repository</module>
+        <module>simpleinsight-services</module>
+        <module>simpleinsight-web</module>
+        <module>simpleinsight-webapp</module>
+    </modules>
+
+    <properties>
+        <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
+        <org.springframework.security.version>3.1.1.RELEASE</org.springframework.security.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+  
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.0-beta-9</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <repositories>
+          <repository>
+            <id>repository.springsource.milestone</id>
+            <name>SpringSource Milestone Repository</name>
+            <url>http://repo.springsource.org/milestone</url>
+        </repository>
+    </repositories>
+</project>
