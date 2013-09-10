@@ -36,7 +36,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>        
                     <webResources>
                         <resource>
-                            <directory>/src/main/webapp</directory>
+                            <directory>src/main/webapp</directory>
                             <excludes>
                                 <exclude>**/*.jar</exclude>
                             </excludes>
