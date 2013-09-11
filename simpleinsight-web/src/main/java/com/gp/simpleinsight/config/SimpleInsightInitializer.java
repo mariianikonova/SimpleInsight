@@ -23,7 +23,6 @@ public class SimpleInsightInitializer
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
        
         rootContext.register(AppConfig.class);
-        rootContext.register(SecurityConfig.class);
         
         
         // Manage the lifecycle of the root application context
