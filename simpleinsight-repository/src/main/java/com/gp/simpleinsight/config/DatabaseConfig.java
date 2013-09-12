@@ -3,21 +3,27 @@ package com.gp.simpleinsight.config;
 import com.jolbox.bonecp.BoneCPDataSource;
 import java.util.Properties;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  *
  * @author bogdan
  */
 @Configuration
+@EnableTransactionManagement
 @ComponentScan("com.gp.simpleinsight.repository")
+@PropertySource("classpath:application.properties")
 public class DatabaseConfig {
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
@@ -30,6 +36,7 @@ public class DatabaseConfig {
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_NAME_HIBERNATE_DDL_AUTO = "hibernate.hbm2ddl.auto";
+
     @Resource
     private Environment environment;
 
@@ -46,22 +53,25 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager() throws ClassNotFoundException {
+    public PlatformTransactionManager transactionManager() throws ClassNotFoundException {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-
-        transactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
-
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() throws ClassNotFoundException {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws ClassNotFoundException {
 
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        vendorAdapter.setDatabasePlatform(environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        vendorAdapter.setShowSql(true);
+
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
         entityManagerFactoryBean.setPackagesToScan(environment.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
-        entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
-        entityManagerFactoryBean.setPersistenceUnitName("insightPU");
+
         Properties jpaProterties = new Properties();
         jpaProterties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
         jpaProterties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
@@ -72,5 +82,10 @@ public class DatabaseConfig {
         entityManagerFactoryBean.setJpaProperties(jpaProterties);
 
         return entityManagerFactoryBean;
+    }
+
+    @Bean
+    public EntityManager entityManger() throws ClassNotFoundException {
+        return entityManagerFactory().getObject().createEntityManager();
     }
 }

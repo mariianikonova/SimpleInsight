@@ -12,5 +12,6 @@ import com.gridpulse.simpleinsight.domain.security.User;
  */
 public interface UserRepository {
 
+    public void save(User user);
     public User getUser(String login);
 }

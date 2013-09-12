@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractRepository< T extends Serializable> {
 
     private Class< T> clazz;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -45,6 +46,7 @@ public abstract class AbstractRepository< T extends Serializable> {
 
     public void save(final T entity) {
         entityManager.persist(entity);
+        entityManager.flush();
     }
 
     public T update(final T entity) {
