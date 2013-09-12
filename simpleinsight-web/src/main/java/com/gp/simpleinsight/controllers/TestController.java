@@ -27,15 +27,9 @@ public class TestController {
     @RequestMapping("/data/UserInfo")
     public void test(Principal user, PrintWriter writer){
         
-        User userd = new User();
-        userd.setLogin("admin");
-        userd.setPassword("mumu");
+        User u = userRepository.getUser("admin");
         
-        userRepository.save(userd);
-        
-        userRepository.getUser("admin");
-        
-        writer.write(user.getName());
+        writer.write(u.getLogin() + " : " + u.getPassword() );
         
     }
     

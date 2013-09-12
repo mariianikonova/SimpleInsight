@@ -1,6 +1,8 @@
 package com.gp.simpleinsight.config;
 
+import com.gp.simpleinsight.populator.DefaultDataPopulator;
 import com.jolbox.bonecp.BoneCPDataSource;
+import java.sql.SQLException;
 import java.util.Properties;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -36,7 +39,6 @@ public class DatabaseConfig {
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
     private static final String PROPERTY_NAME_HIBERNATE_DDL_AUTO = "hibernate.hbm2ddl.auto";
-
     @Resource
     private Environment environment;
 
@@ -57,6 +59,17 @@ public class DatabaseConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public DatabasePopulator databasePopulator(DataSource dataSource) throws ClassNotFoundException {
+        DefaultDataPopulator populator = new DefaultDataPopulator();
+        populator.setEm(entityManger());
+        try {
+            populator.populate(dataSource.getConnection());
+        } catch (SQLException ignored) {
+        }
+        return populator;
     }
 
     @Bean
