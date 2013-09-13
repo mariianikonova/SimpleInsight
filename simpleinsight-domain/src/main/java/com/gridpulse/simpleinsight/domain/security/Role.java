@@ -23,6 +23,13 @@ import javax.persistence.Table;
 @Table(name = "roles")
 public class Role implements Serializable{
 
+    public Role() {
+    }
+
+    public Role(String role) {
+        this.role = role;
+    }
+    
     @Id
     @GeneratedValue
     private Integer id;

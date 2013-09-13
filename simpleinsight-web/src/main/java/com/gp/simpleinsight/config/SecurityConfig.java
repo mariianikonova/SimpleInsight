@@ -4,12 +4,14 @@
  */
 package com.gp.simpleinsight.config;
 
+import javax.annotation.Resource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  *
@@ -20,12 +22,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig
         extends WebSecurityConfigurerAdapter {
 
+    @Resource(name="userDetailsService")
+    UserDetailsService userDetailsService;
+    
     @Override
     protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin") // #2
-                .password("password")
-                .roles("ADMIN", "USER");
+        auth.userDetailsService(userDetailsService);
+        
     }
 
     @Override
@@ -48,5 +51,9 @@ public class SecurityConfig
                 .antMatchers("/meta/**").hasRole("USER")
                 .antMatchers("/data/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN");
+    }
+
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 }

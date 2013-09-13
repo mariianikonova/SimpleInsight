@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserRepositoryImpl extends AbstractRepository<User>
         implements UserRepository {
 
-
+    @Transactional(readOnly = true)
     public User getUser(String login) {
         List<User> userList = new ArrayList<User>();
 

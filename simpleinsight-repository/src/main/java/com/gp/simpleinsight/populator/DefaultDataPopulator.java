@@ -4,6 +4,7 @@
  */
 package com.gp.simpleinsight.populator;
 
+import com.gridpulse.simpleinsight.domain.security.Role;
 import com.gridpulse.simpleinsight.domain.security.User;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,7 +12,6 @@ import javax.persistence.EntityManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -30,8 +30,8 @@ public class DefaultDataPopulator implements DatabasePopulator {
 
         em.getTransaction().begin();
 
-        em.persist(createUser("admin", "password"));
-        em.persist(createUser("user", "password"));
+        em.persist(createUser("admin", "password", "ROLE_ADMIN"));
+        em.persist(createUser("user", "password", "USER"));
 
         em.flush();
         em.getTransaction().commit();
@@ -46,10 +46,11 @@ public class DefaultDataPopulator implements DatabasePopulator {
         this.em = em;
     }
 
-    private User createUser(String login, String pass) {
+    private User createUser(String login, String pass, String role) {
         User adminUser = new User();
         adminUser.setLogin(login);
         adminUser.setPassword(pass);
+        adminUser.setRole(new Role(role));
         return adminUser;
     }
 }

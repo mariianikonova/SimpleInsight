@@ -3,6 +3,7 @@ package com.gp.simpleinsight.config;
 import javax.annotation.Resource;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
@@ -19,7 +20,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @Import({DatabaseConfig.class, DispatcherConfig.class, SecurityConfig.class})
 @PropertySource("classpath:application.properties")
-
+@ComponentScan("com.gp.simpleinsight.services")
 public class AppConfig {
 
     private static final String PROPERTY_NAME_MESSAGESOURCE_BASENAME = "message.source.basename";
