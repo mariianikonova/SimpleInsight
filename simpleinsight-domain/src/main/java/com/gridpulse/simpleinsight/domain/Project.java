@@ -2,6 +2,7 @@ package com.gridpulse.simpleinsight.domain;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -11,7 +12,9 @@ import javax.persistence.Id;
 @Entity
 public class Project extends MultiTennantDomainObject implements Serializable {
 
-    @Id private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     
     private String code;
     private String name;
@@ -39,9 +42,4 @@ public class Project extends MultiTennantDomainObject implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
-    
-    
-    
 }

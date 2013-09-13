@@ -20,6 +20,6 @@ public class InsightGrantedAuthority implements GrantedAuthority {
     }
 
     public String getAuthority() {
-        return this.role.getRole();
+        return this.role.getName();
     }
 }

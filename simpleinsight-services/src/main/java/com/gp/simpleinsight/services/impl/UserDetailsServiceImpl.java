@@ -24,10 +24,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
 
         User user = userRepository.getUser(string);
-
         InsightUserDetails userDetails = new InsightUserDetails(user);
         
-
         return userDetails;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }

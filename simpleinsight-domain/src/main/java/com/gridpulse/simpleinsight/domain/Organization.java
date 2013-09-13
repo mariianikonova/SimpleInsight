@@ -1,22 +1,32 @@
 package com.gridpulse.simpleinsight.domain;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 /**
  *
  * @author bogdan
  */
+@Entity
+@Table(name = "organizations")
 public class Organization implements Serializable {
 
-    @Id private Long id;
-    @Version private  Long version;
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    @Version
+    private Long version;
     
     private String code;
     private String name;
-    
-    protected Organization() {}
+
+    protected Organization() {
+    }
 
     Organization(String code, String name) {
         this.code = code;
@@ -60,5 +70,4 @@ public class Organization implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 }

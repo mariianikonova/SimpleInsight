@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gp.simpleinsight.model;
 
+import com.gridpulse.simpleinsight.domain.security.Role;
 import com.gridpulse.simpleinsight.domain.security.User;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +20,15 @@ public class InsightUserDetails
 
     public InsightUserDetails(User user) {
         this.user = user;
-        this.grantedAuthorities.add(new InsightGrantedAuthority(user.getRole()));
+        refreshAuthorities();
+
+    }
+
+    private void refreshAuthorities() {
+        grantedAuthorities = new ArrayList<InsightGrantedAuthority>();
+        for (Role role : getUser().getRoles()) {
+            grantedAuthorities.add(new InsightGrantedAuthority(role));
+        }
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,7 +37,7 @@ public class InsightUserDetails
 
     public String getPassword() {
         return user.getPassword();
-        }
+    }
 
     public String getUsername() {
         return user.getLogin();
@@ -40,7 +45,7 @@ public class InsightUserDetails
 
     public boolean isAccountNonExpired() {
         return true;
-        
+
     }
 
     public boolean isAccountNonLocked() {
@@ -53,5 +58,9 @@ public class InsightUserDetails
 
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gridpulse.simpleinsight.domain.security;
 
 import java.io.Serializable;
@@ -21,21 +17,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable{
+public class Role
+        implements Serializable {
 
     public Role() {
     }
 
-    public Role(String role) {
-        this.role = role;
+    public Role(String roleName) {
+        this.name = roleName;
     }
-    
     @Id
     @GeneratedValue
     private Integer id;
     
-    private String role;
-    
+    private String name;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = {
@@ -52,14 +48,15 @@ public class Role implements Serializable{
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    
     public Set<User> getUserRoles() {
         return userRoles;
     }

@@ -8,6 +8,8 @@ import com.gridpulse.simpleinsight.domain.security.Role;
 import com.gridpulse.simpleinsight.domain.security.User;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,12 +32,16 @@ public class DefaultDataPopulator implements DatabasePopulator {
 
         em.getTransaction().begin();
 
-        em.persist(createUser("admin", "password", "ROLE_ADMIN"));
-        em.persist(createUser("user", "password", "USER"));
+        Role adminRole = em.merge(new Role("ROLE_ADMIN"));
+        Role userRole = em.merge(new Role("ROLE_USER"));
+        
+        
+        em.persist(createUser("admin", "password", adminRole));
+        em.persist(createUser("user", "password", userRole, adminRole));
 
         em.flush();
         em.getTransaction().commit();
-        
+
         if (logger.isInfoEnabled()) {
             logger.info("Finished populating database with default data");
         }
@@ -46,11 +52,17 @@ public class DefaultDataPopulator implements DatabasePopulator {
         this.em = em;
     }
 
-    private User createUser(String login, String pass, String role) {
+    private User createUser(String login, String pass, Role... roleNames) {
         User adminUser = new User();
         adminUser.setLogin(login);
         adminUser.setPassword(pass);
-        adminUser.setRole(new Role(role));
+
+        Set<Role> roles = new HashSet<Role>();
+        for (Role role : roleNames) {
+            roles.add(role);
+        }
+
+        adminUser.setRoles(roles);
         return adminUser;
     }
 }
