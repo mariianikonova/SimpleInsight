@@ -4,6 +4,7 @@
  */
 package com.gp.simpleinsight.model;
 
+import com.gridpulse.simpleinsight.domain.security.Authority;
 import com.gridpulse.simpleinsight.domain.security.Role;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,13 +14,13 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class InsightGrantedAuthority implements GrantedAuthority {
 
-    Role role;
+    Authority authority;
 
-    public InsightGrantedAuthority(Role role) {
-        this.role = role;
+    public InsightGrantedAuthority(Authority authority) {
+        this.authority = authority;
     }
 
     public String getAuthority() {
-        return this.role.getName();
+        return this.authority.getName();
     }
 }

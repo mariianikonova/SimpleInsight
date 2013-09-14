@@ -1,5 +1,6 @@
 package com.gp.simpleinsight.model;
 
+import com.gridpulse.simpleinsight.domain.security.Permission;
 import com.gridpulse.simpleinsight.domain.security.Role;
 import com.gridpulse.simpleinsight.domain.security.User;
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class InsightUserDetails
         grantedAuthorities = new ArrayList<InsightGrantedAuthority>();
         for (Role role : getUser().getRoles()) {
             grantedAuthorities.add(new InsightGrantedAuthority(role));
+            
+            for(Permission p:role.getPermissions())
+            {
+                grantedAuthorities.add(new InsightGrantedAuthority(p));
+            }
+            
         }
     }
 

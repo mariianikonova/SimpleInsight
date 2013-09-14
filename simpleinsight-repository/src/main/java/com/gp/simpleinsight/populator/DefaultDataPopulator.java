@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gp.simpleinsight.populator;
 
+import com.gridpulse.simpleinsight.domain.security.Permission;
 import com.gridpulse.simpleinsight.domain.security.Role;
 import com.gridpulse.simpleinsight.domain.security.User;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.EntityManager;
@@ -32,12 +30,20 @@ public class DefaultDataPopulator implements DatabasePopulator {
 
         em.getTransaction().begin();
 
-        Role adminRole = em.merge(new Role("ROLE_ADMIN"));
-        Role userRole = em.merge(new Role("ROLE_USER"));
+        Permission queryDataPermission = new Permission("PERMISSION_QUERY_DATA");
         
+        em.persist(queryDataPermission);
         
-        em.persist(createUser("admin", "password", adminRole));
-        em.persist(createUser("user", "password", userRole, adminRole));
+        Role adminRole = new Role("ROLE_ADMIN");
+        Role userRole = new Role("ROLE_USER");
+        
+        userRole.getPermissions().add(queryDataPermission);
+
+        em.persist(adminRole);
+        em.persist(userRole);
+
+        em.persist(createUser("admin", "password", adminRole, userRole));
+        em.persist(createUser("user", "password", userRole));
 
         em.flush();
         em.getTransaction().commit();
@@ -54,15 +60,14 @@ public class DefaultDataPopulator implements DatabasePopulator {
 
     private User createUser(String login, String pass, Role... roleNames) {
         User adminUser = new User();
+        Set<Role> roles = new HashSet<Role>();
+
         adminUser.setLogin(login);
         adminUser.setPassword(pass);
 
-        Set<Role> roles = new HashSet<Role>();
-        for (Role role : roleNames) {
-            roles.add(role);
-        }
-
+        roles.addAll(Arrays.asList(roleNames));
         adminUser.setRoles(roles);
+
         return adminUser;
     }
 }

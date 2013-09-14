@@ -6,10 +6,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,14 +30,14 @@ public class User implements Serializable {
     @Column(length = 32, unique = true)
     private String login;
     private String password;
-    
-    @OneToMany
+
+    @ManyToMany
     @JoinTable(
             name = "user_roles",
-            joinColumns =
-            @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns =
-            @JoinColumn(name = "role_id", referencedColumnName = "id"))
+            joinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+        @JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<Role>();
 
     public Integer getId() {
@@ -69,6 +71,4 @@ public class User implements Serializable {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    
 }
