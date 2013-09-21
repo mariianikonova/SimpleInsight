@@ -1,20 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gp.simpleinsight.controllers;
 
-import com.gp.simpleinsight.model.InsightGrantedAuthority;
 import com.gp.simpleinsight.model.InsightUserDetails;
 import com.gp.simpleinsight.repository.UserRepository;
-import com.gridpulse.simpleinsight.domain.security.User;
 import java.io.PrintWriter;
 import java.security.Principal;
 import javax.annotation.Resource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
