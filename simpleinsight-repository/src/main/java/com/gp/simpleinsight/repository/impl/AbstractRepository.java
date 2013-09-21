@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author bogdan
+ * @param <T> the type that will be handled by the repository
  */
 public abstract class AbstractRepository< T extends Serializable> {
 
