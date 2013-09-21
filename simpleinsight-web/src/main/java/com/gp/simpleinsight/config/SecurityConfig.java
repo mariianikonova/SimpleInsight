@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  *
@@ -20,6 +22,12 @@ public class SecurityConfig
 
     @Resource(name="userDetailsService")
     UserDetailsService userDetailsService;
+
+    @Resource(name = "successHandler")
+    AuthenticationSuccessHandler successHandler;
+    
+    @Resource(name = "failureHandler")
+    AuthenticationFailureHandler failureHandler;
     
     @Override
     protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,6 +46,8 @@ public class SecurityConfig
                 .loginPage("/login.html")
                 .failureUrl("/login.html?failed")
                 .permitAll()
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
                 .and()
                 .logout().invalidateHttpSession(true)
                 .logoutSuccessUrl("/login.html?logout")

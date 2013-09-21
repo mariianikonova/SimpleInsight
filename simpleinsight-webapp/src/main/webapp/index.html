@@ -1,11 +1,150 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <link rel="stylesheet" type="text/css" href="./style/custom.css"/>
-    </head>
-    <body>
-        <div class="title">IT WORKS!</div>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleInsight :: Simplify your flow</title>
+    
+	<link href="assets/lib/css/cerulean/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style> 
+    <link href="assets/lib/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link href="assets/lib/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="assets/lib/css/simpleinsight-base.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">SimpleInsight</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li><a href="#loginModal" role="button" onClick='showLogin()' class="navbar-link">Sign in</a></li>
+            </ul>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="about.html">What is SimpleInsight?</a></li>
+              <li><a href="#">Contact us</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="container">
+    <div class="hero-unit">
+
+		<h1>Simplify your flow</h1>
+		<p>
+			For simple, beautiful and transparent collaboration. For you.
+		</p><br/>
+                <a id="registerButton" class="btn btn-large btn-success" href="#" onclick="register()">Sign up for SimpleInsight</a>  or explore <a href="about.html" class="btn-link">a new way to work</a>
+
+    </div>
+    
+      <div class="row">
+        <div class="span4">
+          <h2><i class="icon-user"></i> Easy to use</h2>
+          <p>
+              <b>A work support system that you don't have to learn.</b><br/>
+              You know what's funny? When you are forced to learn a whole new application that you need to use to get things done....<br/>
+              Traditional process support systems are complex and usually have a steep learning curve.<br/>
+              SimpleInsight is designed and build for you, combining ease of use with a visually appealing user interface that
+              practically explains itself.
+          </p>
+          <p><a class="btn" href="#">Read more &raquo;</a></p>
+        </div>
+        <div class="span4">
+          <h2><i class="icon-dashboard"></i> Balanced</h2>
+          <p> <b>More of what you need, less bloat and feature creep.</b><br/>
+              Even if the whole SimpleInsight experience is built around simplicity it doesn't mean that it is poor in features or lacking in respect
+                to other online learning support systems. We like to think that we  managed to build a product that provides everything you need in a
+                simple, functional package.</p>
+          <p><a class="btn" href="#">View our features &raquo;</a></p>
+       </div>
+        <div class="span4">
+          <h2><i class="icon-cloud"></i> Cloud powered</h2>
+          <p>
+              <b>It won't go down and it won't loose your data</b>. <br/>
+            SimpleInsight is designed and built to scale and survive.
+            This is not a plain old application running "in the cloud" - the underlying technologies and frameworks that power SimpleInsight have been carefully selected, and its
+            Cloud DNA includes lightweight, portable web components, on top of Linux running on Amazons <a href="http://aws.amazon.com/ec2/">EC2</a> and <a href="http://aws.amazon.com/s3/">S3</a>.
+
+          </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+      </div>
+    <hr/>
+
+    <div class="row">
+
+        <div class="span4">
+            <h4>Get in touch:</h4>
+            <a href="#"><i class="icon-envelope-alt"></i> Contact us</a><br/>
+            <a href="#"><i class="icon-medkit"></i> Support Center</a>
+        </div>
+
+        <div class="span4">
+            <h4>Quick links:</h4>
+            <a href="#"><i class="icon-book"></i> Help Center</a><br/>
+            <a href="#"><i class="icon-info-sign"></i> Terms of Use</a><br/>
+            <a href="#"><i class="icon-eye-open"></i> Privacy Policy</a><br/>
+            <a href="#"><i class="icon-heart"></i> Labor of Love</a>
+
+        </div>
+
+        <div class="span4">
+            <h4>Be social:</h4>
+            <i class="icon-twitter-sign icon-2x"></i> <i class="icon-linkedin-sign icon-2x"></i> <i class="icon-facebook-sign icon-2x"></i>
+        </div>
+    </div>
+
+</div>
+
+<script src="assets/lib/js/jquery.min.js"></script>
+<script src="assets/lib/js/jquery.validate.js"></script>
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script-->
+<script src="assets/lib/js/bootstrap.js"></script>
+<script src="assets/js/LoginDialog.js"></script>
+<script src="assets/js/RegisterDialog.js"></script>
+
+<script type="text/javascript">
+
+    function register(){
+        $('#registerButton').registerDialog();
+        var register = $('#registerButton').data('registerDialog');
+        register.show();
+    }
+
+    function showLogin(){
+		$('body').logindialog();
+
+		var login = $('body').data('logindialog');
+		login.show();
+	}
+	
+</script>
+
+</body>
 </html>

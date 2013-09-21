@@ -1,0 +1,27 @@
+	.form-register {
+        max-width: 300px;
+            margin-top:20px;
+        background-color: #fff;
+       }
+
+	.login-modal{
+		width:400px;
+		margin-left: -200px
+	}
+
+	.form-signin {
+        max-width: 300px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+       }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }

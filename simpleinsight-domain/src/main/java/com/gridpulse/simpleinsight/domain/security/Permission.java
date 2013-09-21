@@ -9,6 +9,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
+ * A permission represents a right that can be granted to a user. The permission can depict simple concepts
+ * like the user right to view an UI module or complex rights like the user right to write a specific entity.
+ * Permission naming should be done consistently, for example: General permissions should start with
+ * PERMISSION_ while UI permissions should start with UI_PERMISSION_.
  *
  * @author bogdan
  */
