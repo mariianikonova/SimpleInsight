@@ -8,8 +8,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 /**
  *
@@ -20,19 +22,17 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfig
         extends WebSecurityConfigurerAdapter {
 
-    @Resource(name="userDetailsService")
+    @Resource(name = "userDetailsService")
     UserDetailsService userDetailsService;
-
     @Resource(name = "successHandler")
     AuthenticationSuccessHandler successHandler;
-    
     @Resource(name = "failureHandler")
     AuthenticationFailureHandler failureHandler;
-    
+
     @Override
     protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-        
+
     }
 
     @Override
@@ -42,9 +42,13 @@ public class SecurityConfig
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // prepare the overridden AJAX success and failure handlers
+        ((AbstractAuthenticationTargetUrlRequestHandler) successHandler).setDefaultTargetUrl("/app/index.html");
+        ((SimpleUrlAuthenticationFailureHandler) failureHandler).setDefaultFailureUrl("/login.html?failed=true");
+
         http.formLogin() // #8
                 .loginPage("/login.html")
-                .failureUrl("/login.html?failed")
                 .permitAll()
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)

@@ -22,7 +22,7 @@ public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     
             if ("true".equals(request.getHeader("X-Ajax-call"))) {
                 response.setHeader("Content-Type", "application/json");
-                response.getWriter().print("{'status':'ok'}");
+                response.getWriter().print("{\"status\":\"ok\", \"to\":\"" + this.getDefaultTargetUrl() + "\"}");
                 response.getWriter().flush();
             } else {
                 super.onAuthenticationSuccess(request, response, auth);
