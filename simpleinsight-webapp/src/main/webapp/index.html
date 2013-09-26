@@ -42,8 +42,8 @@
                             <li><a href="#loginModal" role="button" onClick='showLogin()' class="navbar-link">Sign in</a></li>
                         </ul>
                         <ul class="nav">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active"><a href="about.html">What is SimpleInsight?</a></li>
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li><a href="about.html">What is SimpleInsight?</a></li>
                             <li><a href="contact.html">Contact</a></li>
 
                         </ul>
@@ -131,18 +131,18 @@
 
         <script type="text/javascript">
 
-                            function register() {
-                                $('#registerButton').registerDialog();
-                                var register = $('#registerButton').data('registerDialog');
-                                register.show();
-                            }
+                                function register() {
+                                    $('#registerButton').registerDialog();
+                                    var register = $('#registerButton').data('registerDialog');
+                                    register.show();
+                                }
 
-                            function showLogin() {
-                                $('body').logindialog();
+                                function showLogin() {
+                                    $('body').logindialog();
 
-                                var login = $('body').data('logindialog');
-                                login.show();
-                            }
+                                    var login = $('body').data('logindialog');
+                                    login.show();
+                                }
 
         </script>
 

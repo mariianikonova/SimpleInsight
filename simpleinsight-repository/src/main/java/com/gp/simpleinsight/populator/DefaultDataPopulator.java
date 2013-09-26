@@ -44,6 +44,7 @@ public class DefaultDataPopulator implements DatabasePopulator {
 
         em.persist(createUser("admin", "password", adminRole, userRole));
         em.persist(createUser("user", "password", userRole));
+        em.persist(createUser("bogdan@costea.us", "password", userRole));
 
         em.flush();
         em.getTransaction().commit();

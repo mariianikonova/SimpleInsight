@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -56,9 +57,13 @@ public class SecurityConfig
                 .logout().invalidateHttpSession(true)
                 .logoutSuccessUrl("/login.html?logout")
                 .and()
+                // SessionCreationPolicy is required for Ajax authentication
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.always)
+                .and()
                 .authorizeUrls()
                 .antMatchers("/index.html").permitAll() // index and login pages are unsecured
-                .antMatchers("/meta/**").hasRole("USER")
+                .antMatchers("/app/**").hasRole("USER")
+                .antMatchers("/api/**").hasRole("USER")
                 .antMatchers("/data/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN");
     }
