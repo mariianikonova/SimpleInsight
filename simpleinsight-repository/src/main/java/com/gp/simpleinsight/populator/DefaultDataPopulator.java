@@ -20,6 +20,7 @@ import org.springframework.jdbc.datasource.init.DatabasePopulator;
 public class DefaultDataPopulator implements DatabasePopulator {
 
     private final static Log logger = LogFactory.getLog(DefaultDataPopulator.class);
+
     EntityManager em;
 
     public void populate(Connection cnctn) throws SQLException {
@@ -31,20 +32,20 @@ public class DefaultDataPopulator implements DatabasePopulator {
         em.getTransaction().begin();
 
         Permission queryDataPermission = new Permission("PERMISSION_QUERY_DATA");
-        
+
         em.persist(queryDataPermission);
-        
+
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
-        
+
         userRole.getPermissions().add(queryDataPermission);
 
         em.persist(adminRole);
         em.persist(userRole);
 
-        em.persist(createUser("admin", "password", adminRole, userRole));
-        em.persist(createUser("user", "password", userRole));
-        em.persist(createUser("bogdan@costea.us", "password", userRole));
+        em.persist(createUser("admin", "password", "System", "Admin", adminRole, userRole));
+        em.persist(createUser("user", "password", "System", "User", userRole));
+        em.persist(createUser("bogdan@costea.us", "password", "Bogdan", "Costea", userRole));
 
         em.flush();
         em.getTransaction().commit();
@@ -59,16 +60,18 @@ public class DefaultDataPopulator implements DatabasePopulator {
         this.em = em;
     }
 
-    private User createUser(String login, String pass, Role... roleNames) {
-        User adminUser = new User();
+    private User createUser(String login, String pass, String firstName, String lastName, Role... roleNames) {
+        User user = new User();
         Set<Role> roles = new HashSet<Role>();
 
-        adminUser.setLogin(login);
-        adminUser.setPassword(pass);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setLogin(login);
+        user.setPassword(pass);
 
         roles.addAll(Arrays.asList(roleNames));
-        adminUser.setRoles(roles);
+        user.setRoles(roles);
 
-        return adminUser;
+        return user;
     }
 }

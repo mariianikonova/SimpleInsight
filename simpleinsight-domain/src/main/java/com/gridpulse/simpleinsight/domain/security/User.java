@@ -24,17 +24,25 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
+
     @Column(length = 32, unique = true)
     private String login;
+
     private String password;
+
+    @Column(length = 255)
+    private String firstName;
+
+    @Column(length = 255)
+    private String lastName;
 
     @ManyToMany
     @JoinTable(
             name = "user_roles",
             joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")},
+                @JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {
-        @JoinColumn(name = "role_id", referencedColumnName = "id")})
+                @JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<Role>();
 
     public Integer getId() {
@@ -68,4 +76,21 @@ public class User implements Serializable {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 }

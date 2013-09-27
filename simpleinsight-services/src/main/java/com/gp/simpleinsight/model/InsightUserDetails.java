@@ -20,6 +20,7 @@ public class InsightUserDetails
         implements UserDetails {
 
     private final User user;
+
     private List<InsightGrantedAuthority> grantedAuthorities = new ArrayList<InsightGrantedAuthority>();
 
     public InsightUserDetails(User user) {
@@ -41,15 +42,15 @@ public class InsightUserDetails
 
     public String getEmailHash() {
         return md5(getUsername());
+    }
 
+    public String getDisplayName() {
+        return user.getFirstName() + " " + user.getLastName();
     }
 
     public static String md5(String input) {
-
         String md5 = null;
-
         try {
-
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(input.getBytes(), 0, input.length());
             md5 = new BigInteger(1, digest.digest()).toString(16);
@@ -57,7 +58,6 @@ public class InsightUserDetails
         } catch (NoSuchAlgorithmException e) {
             // TODO: Log me
         }
-
         return md5;
     }
 

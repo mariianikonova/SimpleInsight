@@ -23,15 +23,24 @@ public class ClientConfigController {
 
     @RequestMapping(value = "/api/config", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Map<String, Object> getClientConfig(Principal principal) {
-        Map<String, Object> config = new HashMap<String, Object>();
+    public Map<String, Map<String, Object>> getClientConfig(Principal principal) {
+        Map<String, Map<String, Object>> config = new HashMap<String, Map<String, Object>>();
 
         InsightUserDetails userDetails = (InsightUserDetails) userDetailsService.loadUserByUsername(principal.getName());
-        config.put("username", userDetails.getUsername());
-        config.put("emailhash", userDetails.getEmailHash());
-        config.put("grantedAuthorities", userDetails.getAuthorities());
+
+        config.put("user", getUserDetailsMap(userDetails));
 
         return config;
+    }
+
+    private Map<String, Object> getUserDetailsMap(InsightUserDetails userDetails) {
+        Map<String, Object> user = new HashMap<String, Object>();
+        user.put("username", userDetails.getUsername());
+        user.put("displayName", userDetails.getDisplayName());
+
+        user.put("emailHash", userDetails.getEmailHash());
+        user.put("grantedAuthorities", userDetails.getAuthorities());
+        return user;
     }
 
 }
