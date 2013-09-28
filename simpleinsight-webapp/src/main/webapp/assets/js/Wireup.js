@@ -1,3 +1,4 @@
+var ClientConfig = {};
 
 var Bootstrapper = function() {
 };
@@ -6,13 +7,36 @@ Bootstrapper.prototype.initLogger = function() {
     if (console) {
         this.logger = console;
     } else {
-        this.logger = {info:function(){}, error:function(){}};
+        this.logger = {info: function() {
+            }, error: function() {
+            }};
     }
 };
 
+Bootstrapper.prototype.setupClientConfig = function(data) {
+    ClientConfig = data;
+    
+    var perms = new Array();
+    
+    $.each(ClientConfig.user.grantedAuthorities, function(index, value) {
+        perms.push(value.authority);
+    });
+    
+    ClientConfig.user.grantedAuthorities = perms;
+};
+
+Bootstrapper.prototype.buildUi = function() {
+    $('#userDropdown').userDropDownMenu();
+    $('#mainMenu').mainMenu();
+};
+
+
+
 Bootstrapper.prototype.run = function() {
     var me = this;
+
     me.initLogger();
+
     $(document).ready(
             function() {
                 $(document).ajaxStart(function() {
@@ -32,9 +56,8 @@ Bootstrapper.prototype.run = function() {
                     url: "../api/config",
                     success: function(data, textStatus, jqXHR) {
                         me.logger.info("[WireUp] Client config loaded");
-                        window.ClientConfig = data;
-                        
-                        $('#userDropdown').userDropDownMenu();
+                        me.setupClientConfig(data);
+                        me.buildUi();
 
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

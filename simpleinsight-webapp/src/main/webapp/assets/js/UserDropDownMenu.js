@@ -13,16 +13,14 @@
 
         this.userDropDownMenu = $('<ul />', {'class': 'dropdown-menu', 'role': 'menu', 'aria-labelledby': 'dLabel'})
 
-                .append($('<li />').append($('<a />', {'tabindex': '-1', 'href': '#'}).append($('<i />', {'class': 'icon-user'})).append("Edit profile")))
+                .append(UiHelpers.createMenuItem('Edit profile', 'icon-user'))
 
-                .append($('<li />', {class: 'divider'}))
+                .append(UiHelpers.createMenuDivider())
+                .append(UiHelpers.createMenuItem('Account settings', 'icon-cog'))
+                .append(UiHelpers.createMenuItem('Change language', 'icon-flag'))
 
-                .append($('<li />').append($('<a />', {'tabindex': '-1', 'href': '#'}).append($('<i />', {'class': 'icon-cog'})).append("Account settings")))
-                .append($('<li />').append($('<a />', {'tabindex': '-1', 'href': '#'}).append($('<i />', {'class': 'icon-flag'})).append("Change language")))
-
-                .append($('<li />', {class: 'divider'}))
-                
-                .append($('<li />').append($('<a />', {'tabindex': '-1', 'href': '../logout'}).append($('<i />', {'class': 'icon-key'})).append("Sign out")));
+                .append(UiHelpers.createMenuDivider())
+                .append(UiHelpers.createMenuItem('Sign out', 'icon-key', '-1', '../logout'));
 
         $(elem).append(this.userDropDownMenuButton);
         $(elem).append(this.userDropDownMenu);

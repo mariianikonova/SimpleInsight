@@ -33,19 +33,26 @@ public class DefaultDataPopulator implements DatabasePopulator {
 
         Permission queryDataPermission = new Permission("PERMISSION_QUERY_DATA");
 
+        Permission manageOrgPermission = new Permission("PERMISSION_MANAGE_ORGANISATION");
+
+        em.persist(manageOrgPermission);
         em.persist(queryDataPermission);
 
         Role adminRole = new Role("ROLE_ADMIN");
-        Role userRole = new Role("ROLE_USER");
 
+        Role orgAdminRole = new Role("ROLE_ORG_ADMIN");
+        orgAdminRole.getPermissions().add(manageOrgPermission);
+
+        Role userRole = new Role("ROLE_USER");
         userRole.getPermissions().add(queryDataPermission);
 
         em.persist(adminRole);
+        em.persist(orgAdminRole);
         em.persist(userRole);
 
         em.persist(createUser("admin", "password", "System", "Admin", adminRole, userRole));
         em.persist(createUser("user", "password", "System", "User", userRole));
-        em.persist(createUser("bogdan@costea.us", "password", "Bogdan", "Costea", userRole));
+        em.persist(createUser("bogdan@costea.us", "password", "Bogdan", "Costea", orgAdminRole, userRole));
 
         em.flush();
         em.getTransaction().commit();
