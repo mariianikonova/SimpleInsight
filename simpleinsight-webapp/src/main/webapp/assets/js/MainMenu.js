@@ -7,8 +7,11 @@
         }, options || {});
 
         this.dashboard = UiHelpers.createMenuItem("Dashboard", 'icon-dashboard', '2','#');
+        $(this.dashboard).dashboardModule();
+        
         this.addQuickTask = UiHelpers.createMenuItem("Add task", 'icon-plus-sign-alt', '3','#');
 
+        
         $(elem).append(this.dashboard);
         $(elem).append(this.addQuickTask);
         
