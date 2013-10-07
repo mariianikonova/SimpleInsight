@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author bogdan
  */
 @Repository
-public class UserRepositoryImpl extends AbstractRepository<User>
+public class UserRepositoryImpl extends AbstractRepository<User, Long>
         implements UserRepository {
 
     @Transactional(readOnly = true)

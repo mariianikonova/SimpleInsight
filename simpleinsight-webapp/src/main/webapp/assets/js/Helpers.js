@@ -15,6 +15,7 @@
     };
 
     window.SecurityContext = {
+        // Checks if the currently authenticated user has a specific permission
         hasPermission: function(permission) {
             var auth = ClientConfig.user.grantedAuthorities;
             return $.inArray(permission, auth) > -1;

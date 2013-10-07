@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
  * @author bogdan
  */
 @Configuration
-@Import({DatabaseConfig.class, DispatcherConfig.class, SecurityConfig.class})
+@Import({DatabaseConfig.class, SecurityConfig.class})
 @PropertySource("classpath:application.properties")
 @ComponentScan({"com.gp.simpleinsight.services", "com.gp.simpleinsight.util"})
 public class AppConfig {

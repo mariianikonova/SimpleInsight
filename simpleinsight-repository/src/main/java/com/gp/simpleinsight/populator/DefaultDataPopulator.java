@@ -1,5 +1,6 @@
 package com.gp.simpleinsight.populator;
 
+import com.gridpulse.simpleinsight.domain.Activity;
 import com.gridpulse.simpleinsight.domain.security.Permission;
 import com.gridpulse.simpleinsight.domain.security.Role;
 import com.gridpulse.simpleinsight.domain.security.User;
@@ -55,6 +56,11 @@ public class DefaultDataPopulator implements DatabasePopulator {
         em.persist(createUser("bogdan@costea.us", "password", "Bogdan", "Costea", orgAdminRole, userRole));
 
         em.flush();
+
+        Activity activity = new Activity();
+        activity.setDescription("A new activity");
+        em.persist(activity);
+
         em.getTransaction().commit();
 
         if (logger.isInfoEnabled()) {

@@ -24,7 +24,7 @@
 
     };
 
-    $.fn.mainMenu = function(options)
+    $.fn.createMainMenu = function(options)
     {
         return this.each(function()
         {

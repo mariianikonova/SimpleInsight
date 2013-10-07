@@ -26,8 +26,8 @@ Bootstrapper.prototype.setupClientConfig = function(data) {
 };
 
 Bootstrapper.prototype.buildUi = function() {
-    $('#userDropdown').userDropDownMenu();
-    $('#mainMenu').mainMenu();
+    $('#userDropdown').createUserDropDownMenu();
+    $('#mainMenu').createMainMenu();
 };
 
 

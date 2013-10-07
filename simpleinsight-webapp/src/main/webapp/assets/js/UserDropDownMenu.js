@@ -27,7 +27,7 @@
 
     };
 
-    $.fn.userDropDownMenu = function(options)
+    $.fn.createUserDropDownMenu = function(options)
     {
         return this.each(function()
         {
