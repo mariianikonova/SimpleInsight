@@ -6,13 +6,13 @@
             user: window.ClientConfig.user
         }, options || {});
 
-        this.dashboard = UiHelpers.createMenuItem("Dashboard", 'icon-dashboard', '2','#');
-        $(this.dashboard).dashboardModule();
+        this.productDashboard = UiHelpers.createMenuItem("Products", 'icon-dashboard', '2','#');
+        $(this.productDashboard).productDashboardModule();
         
         this.addQuickTask = UiHelpers.createMenuItem("Add task", 'icon-plus-sign-alt', '3','#');
 
         
-        $(elem).append(this.dashboard);
+        $(elem).append(this.productDashboard);
         $(elem).append(this.addQuickTask);
         
         $(elem).append(UiHelpers.createMenuDivider());

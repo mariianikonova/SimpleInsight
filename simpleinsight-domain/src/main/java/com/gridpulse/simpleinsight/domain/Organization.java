@@ -18,22 +18,23 @@ public class Organization implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    
+
     @Version
     private Long version;
-    
+
     private String code;
+
     private String name;
 
     protected Organization() {
     }
 
-    Organization(String code, String name) {
+    public Organization(String code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    Organization(Long id, String code, String name) {
+    public Organization(Long id, String code, String name) {
         this.id = id;
         this.code = code;
         this.name = name;

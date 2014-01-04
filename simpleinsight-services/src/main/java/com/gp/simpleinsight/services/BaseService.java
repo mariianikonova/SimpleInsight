@@ -11,4 +11,8 @@ public interface BaseService<T> {
 
     public List<T> findAll();
 
+    public T save(T entity);
+
+    public T findById(Long entityId);
+
 }

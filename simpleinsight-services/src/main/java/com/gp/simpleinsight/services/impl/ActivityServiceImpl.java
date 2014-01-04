@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.gp.simpleinsight.services.impl;
 
 import com.gp.simpleinsight.repository.ActivityRepository;
@@ -25,6 +24,14 @@ public class ActivityServiceImpl implements BaseService<Activity> {
 
     public List<Activity> findAll() {
         return activityRepository.findAll();
+    }
+
+    public Activity save(Activity entity) {
+        return activityRepository.save(entity);
+    }
+
+    public Activity findById(Long entityId) {
+        return activityRepository.findOne(entityId);
     }
 
 }

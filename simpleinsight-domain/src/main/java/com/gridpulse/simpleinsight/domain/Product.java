@@ -12,24 +12,18 @@ import javax.persistence.ManyToOne;
  * @author bogdan
  */
 @Entity
-public class Activity extends MultiTennantDomainObject implements Serializable {
+public class Product extends MultiTennantDomainObject implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    private String name;
+
     private String description;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private Project project;
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
+    private ProductLine productLine;
 
     public String getDescription() {
         return description;
@@ -37,6 +31,14 @@ public class Activity extends MultiTennantDomainObject implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -47,4 +49,13 @@ public class Activity extends MultiTennantDomainObject implements Serializable {
         this.id = id;
     }
 
+    public ProductLine getProductLine() {
+        return productLine;
+    }
+
+    public void setProductLine(ProductLine productLine) {
+        this.productLine = productLine;
+    }
+    
+    
 }

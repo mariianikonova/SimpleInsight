@@ -1,5 +1,6 @@
 package com.gridpulse.simpleinsight.domain.security;
 
+import com.gridpulse.simpleinsight.domain.Organization;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -44,6 +46,9 @@ public class User implements Serializable {
             inverseJoinColumns = {
                 @JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<Role>();
+
+    @ManyToOne
+    private Organization organization;
 
     public Integer getId() {
         return id;
@@ -91,6 +96,14 @@ public class User implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
 }

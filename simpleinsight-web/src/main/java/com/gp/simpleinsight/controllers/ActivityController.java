@@ -21,6 +21,4 @@ public class ActivityController extends CrudController<Activity> {
         return service;
     }
 
-
-
 }
